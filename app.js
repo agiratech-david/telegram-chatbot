@@ -762,5 +762,5 @@ bot.on('callback_query', function (msg) {
 
 http.createServer(function (req, res) {
 
-}).listen(3000,);
+}).listen(3000);
 console.log('Server running at 3000');
