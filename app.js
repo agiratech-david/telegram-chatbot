@@ -10,4 +10,4 @@ var bot = new TelegramBot('428231486:AAFMaaaB3fls5VczjVHkgPy5AIBAiwViKRs', {
 
 app.use(express.static(__dirname + '/public'));
 
-app.listen(80);
+app.listen(8000);
