@@ -12,7 +12,7 @@ app.engine('html', require('ejs').renderFile);
 
 
 
-var teleurl='http://chatbot.agiratech.com/'
+var teleurl='https://chatbot.agiratech.com/'
 
 
 
