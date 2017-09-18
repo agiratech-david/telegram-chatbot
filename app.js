@@ -7,8 +7,10 @@ var TelegramBot = require('node-telegram-bot-api');
 var bot = new TelegramBot('428231486:AAFMaaaB3fls5VczjVHkgPy5AIBAiwViKRs', {
     polling: true
 });
-
 app.use(express.static(__dirname + '/public'));
+app.engine('html', require('ejs').renderFile);
+
+
 
 var teleurl='http://chatbot.agiratech.com/'
 
@@ -17,6 +19,8 @@ var teleurl='http://chatbot.agiratech.com/'
 app.get('/', function(req, res) {
     res.render('index.html');
 });
+
+
 
 
 
@@ -760,7 +764,5 @@ bot.on('callback_query', function (msg) {
 
 
 
-http.createServer(function (req, res) {
-
-}).listen(3000);
+app.listen(3000);
 console.log('Server running at 3000');
