@@ -15,9 +15,7 @@ var teleurl='https://chatbot.agiratech.com'
 app.get('/', function(req, res) {
     res.render('index.html');
 });
-
 var intro = ['hi','hello','home','there'];
-
 var text;
 var keyboardStr;
 var keyboard;
@@ -45,7 +43,6 @@ bot.on('message', function(msg) {
 
         });
     }
-
     else if(msg.text.toLowerCase().indexOf('programs') != -1){
          text = 'Sharing Knoledge is always Fun. Let us know what Program details you looking for';
          keyboardStr = JSON.stringify({
@@ -75,7 +72,6 @@ bot.on('message', function(msg) {
          keyboardStr = JSON.stringify({
             inline_keyboard: [
                 [
-
                     {text:'Home',callback_data:'Home'},
                 ]
             ]
@@ -89,7 +85,7 @@ bot.on('message', function(msg) {
     }
     else if(msg.text.toLowerCase().indexOf('sponsor') != -1){
         text = 'Sponsor';
-        const urlspon = teleurl+'/images/sponsor1.png';
+        const urlspon = 'https://railsconf.com/assets/sponsors/Compose-01429f7f427144f1377dd7c838c1d0823d0109d5e90aed47929966efb19372db.png';
         const photospon = request(urlspon);
         bot.sendPhoto(msg.chat.id, photospon, {
             caption: "sponsors"
@@ -97,13 +93,11 @@ bot.on('message', function(msg) {
         keyboardStr = JSON.stringify({
             inline_keyboard: [
                 [
-
                     {text:'Home',callback_data:'Home'},
                 ]
             ]
         });
     }
-
     else if(msg.text.toLowerCase().indexOf('keynotes') !=-1 ){
          text = 'Keynotes';
          keyboardStr = JSON.stringify({
@@ -117,7 +111,6 @@ bot.on('message', function(msg) {
             ]
         });
     }
-
     else if(msg.text.toLowerCase().indexOf('sessions') !=-1 ){
         text = 'Sessions';
         keyboardStr = JSON.stringify({
@@ -144,7 +137,6 @@ bot.on('message', function(msg) {
             ]
         });
     }
-
     else if(msg.text.toLowerCase().indexOf('deep') !=-1){
          text = 'Perusing the Rails Source Code - A Beginners Guide\n' +
             '\n' +
@@ -189,19 +181,18 @@ bot.on('message', function(msg) {
                     {text:'KeyNotes',callback_data:'KeyNotes'},
                     {text:'Programs',callback_data:'Programs'},
                     {text:'Home',callback_data:'Home'}
-
                 ]
             ]
         });
     }
     else if(msg.text.toLowerCase().indexOf('day1') !=-1){
         text = 'Day1';
-        const url1= teleurl+'/images/day1.png';
-        const photo1 = request(url1);
-        bot.sendPhoto(msg.chat.id, photo1, {
+        const url11= 'https://chatbot.agiratech.com/images/day1.png';
+        const photo11 = request(url11);
+        bot.sendPhoto(msg.chat.id, photo11, {
             caption: "Day 1"
         });
-         keyboardStr1 = JSON.stringify({
+         keyboardStr = JSON.stringify({
             inline_keyboard: [
                 [
                     {text:'Schedule',callback_data:'Schedule'},
@@ -212,7 +203,7 @@ bot.on('message', function(msg) {
     }
     else if(msg.text.toLowerCase().indexOf('day2') !=-1){
         text = 'Day 2';
-        const url2= teleurl+'/images/day2.png';
+        const url2= 'https://chatbot.agiratech.com/images/day2.png';
         const photo2 = request(url2);
         bot.sendPhoto(msg.chat.id, photo2, {
             caption: "Day 2"
@@ -228,7 +219,7 @@ bot.on('message', function(msg) {
     }
     else if(msg.text.toLowerCase().indexOf('day3') !=-1){
         text = 'Day3';
-        const url3= teleurl+'/images/day3.png';
+        const url3='https://chatbot.agiratech.com/images/day3.png';
         const photo3 = request(url3);
         bot.sendPhoto(msg.chat.id, photo3, {
             caption: "Day 3"
@@ -244,14 +235,11 @@ bot.on('message', function(msg) {
     }
     else{
         text='Please Enter Correct Values'
-
     }
     keyboard = {reply_markup: JSON.parse(keyboardStr)};
     bot.sendMessage(msg.chat.id, text, keyboard);
 
 });
-
-
 bot.on('callback_query', function (msg) {
     replyData = msg.data;
     switch(replyData){
@@ -296,8 +284,8 @@ bot.on('callback_query', function (msg) {
             bot.sendLocation(msg.message.chat.id,33.4490958, -112.0688753);
             break;
         case "Sponsor":
-            text = 'Sponsor';
-            const urlspon = teleurl+'/images/sponsor1.png';
+            text1 = 'Sponsor';
+            const urlspon = 'https://railsconf.com/assets/sponsors/Compose-01429f7f427144f1377dd7c838c1d0823d0109d5e90aed47929966efb19372db.png';
             const photospon = request(urlspon);
             bot.sendPhoto(msg.message.chat.id, photospon, {
                 caption: "sponsor"
@@ -431,7 +419,7 @@ bot.on('callback_query', function (msg) {
 
         case "day1":
 
-            const url2 = teleurl+'/images/day1.png';
+            const url2 = 'https://chatbot.agiratech.com/images/day1.png';
             const photo2 = request(url2);
             bot.sendPhoto(msg.message.chat.id, photo2, {
                 caption: "DAY1"
@@ -447,11 +435,12 @@ bot.on('callback_query', function (msg) {
             });
             break;
         case "day2":
-            const url3 = teleurl+'/images/day2.png';
+            const url3 ='https://chatbot.agiratech.com/images/day2.png';
             const photo3 = request(url3);
             bot.sendPhoto(msg.message.chat.id, photo3, {
-                caption: "DAY2"
+                caption: "Day 2"
             });
+            text1 = 'Day 2';
             keyboardStr1 = JSON.stringify({
                 inline_keyboard: [
                     [
@@ -462,10 +451,11 @@ bot.on('callback_query', function (msg) {
             });
             break;
         case "day3":
-            const url4 = teleurl+'/images/day3.png';
+            text1 = 'day 3';
+            const url4 ='https://chatbot.agiratech.com/images/day3.png';
             const photo4 = request(url4);
             bot.sendPhoto(msg.message.chat.id, photo4, {
-                caption: "DAY3"
+                caption: "Day 3"
             });
             var keyboardStr1 = JSON.stringify({
                 inline_keyboard: [
