@@ -2,15 +2,13 @@ var express = require('express');
 var app = express();
 const request = require('request');
 var http = require('http');
-// connect node lib for the telegram
 var TelegramBot = require('node-telegram-bot-api');
 var bot = new TelegramBot('428231486:AAFMaaaB3fls5VczjVHkgPy5AIBAiwViKRs', {
     polling: true
 });
 app.use(express.static(__dirname + '/public'));
 app.engine('html', require('ejs').renderFile);
-
-var teleurl='https://chatbot.agiratech.com'
+var teleurl='https://fb-facebook-chatbot.herokuapp.com'
 
 app.get('/', function(req, res) {
     res.render('index.html');
@@ -24,11 +22,10 @@ var text1;
 var keyboardStr1;
 
 bot.on('message', function(msg) {
-    if (intro.indexOf(msg.text.toLowerCase()) != -1) {
+    if (intro.indexOf(msg.text.toLowerCase()) != -1 || msg.text == '/start') {
          text = 'RailsConf 2017 is coming to beautiful Phoenix, Arizona! We’ll be at the Phoenix Convention Center this Spring, so come join us to talk all things Rails with other developers and enthusiasts.\n' +
             '\n' +
             'RailsConf is our annual gathering of Ruby on Rails enthusiasts, practitioners, and companies. It\'s not only the largest, but the oldest as well -- 2017 marks our 12th year! The conference has only grown more robust and exciting from year to year, which is a testament to the incredible Rails community. Whether you\'re just hearing about how welcoming our community is or you\'re one of our #RubyFriends selfie experts. RailsConf is an experience that you just can\'t miss!';
-
          keyboardStr = JSON.stringify({
             inline_keyboard: [
                 [
@@ -39,8 +36,6 @@ bot.on('message', function(msg) {
                     {text: 'About', callback_data: 'About'}
                 ]
             ],
-
-
         });
     }
     else if(msg.text.toLowerCase().indexOf('programs') != -1){
@@ -81,7 +76,6 @@ bot.on('message', function(msg) {
             'Phoenix, AZ 85004 \n' +
             '(602) 262-6225';
          bot.sendLocation(msg.chat.id,33.4490958, -112.0688753);
-
     }
     else if(msg.text.toLowerCase().indexOf('sponsor') != -1){
         text = 'Sponsor';
@@ -187,7 +181,7 @@ bot.on('message', function(msg) {
     }
     else if(msg.text.toLowerCase().indexOf('day1') !=-1){
         text = 'Day1';
-        const url11= 'https://chatbot.agiratech.com/images/day1.png';
+        const url11= teleurl+'/images/day1.png';
         const photo11 = request(url11);
         bot.sendPhoto(msg.chat.id, photo11, {
             caption: "Day 1"
@@ -203,7 +197,7 @@ bot.on('message', function(msg) {
     }
     else if(msg.text.toLowerCase().indexOf('day2') !=-1){
         text = 'Day 2';
-        const url2= 'https://chatbot.agiratech.com/images/day2.png';
+        const url2= teleurl+'/images/day2.png';
         const photo2 = request(url2);
         bot.sendPhoto(msg.chat.id, photo2, {
             caption: "Day 2"
@@ -219,7 +213,7 @@ bot.on('message', function(msg) {
     }
     else if(msg.text.toLowerCase().indexOf('day3') !=-1){
         text = 'Day3';
-        const url3='https://chatbot.agiratech.com/images/day3.png';
+        const url3=teleurl+'/images/day3.png';
         const photo3 = request(url3);
         bot.sendPhoto(msg.chat.id, photo3, {
             caption: "Day 3"
@@ -234,8 +228,9 @@ bot.on('message', function(msg) {
         });
     }
     else{
-        text='Please Enter Correct Values'
-    }
+        text='Please Enter Correct Values';
+        bot.sendMessage(msg.chat.id, text);
+           }
     keyboard = {reply_markup: JSON.parse(keyboardStr)};
     bot.sendMessage(msg.chat.id, text, keyboard);
 
@@ -380,7 +375,6 @@ bot.on('callback_query', function (msg) {
                 ]
             });
             break;
-
         case "david":
             text1 = 'David is the creator of Ruby on Rails, founder & CTO at Basecamp (formerly 37signals), best-selling author, Le Mans class-winning racing driver, public speaker, hobbyist photographer, and family man. ';
 
@@ -416,15 +410,13 @@ bot.on('callback_query', function (msg) {
                 ]
             });
             break;
-
         case "day1":
-
-            const url2 = 'https://chatbot.agiratech.com/images/day1.png';
+            text1 = 'Day 1';
+            const url2 = teleurl+'/images/day1.png';
             const photo2 = request(url2);
             bot.sendPhoto(msg.message.chat.id, photo2, {
                 caption: "DAY1"
             });
-            text1 = 'day 1';
             keyboardStr1 = JSON.stringify({
                 inline_keyboard: [
                     [
@@ -435,7 +427,7 @@ bot.on('callback_query', function (msg) {
             });
             break;
         case "day2":
-            const url3 ='https://chatbot.agiratech.com/images/day2.png';
+            const url3 =teleurl+'/images/day2.png';
             const photo3 = request(url3);
             bot.sendPhoto(msg.message.chat.id, photo3, {
                 caption: "Day 2"
@@ -452,7 +444,7 @@ bot.on('callback_query', function (msg) {
             break;
         case "day3":
             text1 = 'day 3';
-            const url4 ='https://chatbot.agiratech.com/images/day3.png';
+            const url4 =teleurl+'/images/day3.png';
             const photo4 = request(url4);
             bot.sendPhoto(msg.message.chat.id, photo4, {
                 caption: "Day 3"
@@ -471,6 +463,5 @@ bot.on('callback_query', function (msg) {
     bot.sendMessage(msg.message.chat.id,text1,keyboard1);
     bot.answerCallbackQuery(msg.id, '', false);
 });
-
 app.listen(3000);
 console.log('Server running at 3000');
